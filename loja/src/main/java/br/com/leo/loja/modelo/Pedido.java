@@ -44,7 +44,7 @@ public class Pedido {
 	}
 	
 	public void adicionarItem(ItemPedido item) {
-		this.valorTotal = this.valorTotal.add(item.getPrecoUnitario());
+		this.valorTotal = this.valorTotal.add(item.getValor());
 		item.setPedido(this);
 		this.itens.add(item);
 	}
@@ -80,6 +80,7 @@ public class Pedido {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
+	
 	
 	
 

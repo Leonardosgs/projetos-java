@@ -1,13 +1,14 @@
 package br.com.leo.loja.testes;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import br.com.leo.loja.dao.ClienteDAO;
 import br.com.leo.loja.dao.ItemPedidoDAO;
 import br.com.leo.loja.dao.PedidoDAO;
 import br.com.leo.loja.dao.ProdutoDAO;
-import br.com.leo.loja.modelo.Cliente;
 import br.com.leo.loja.modelo.ItemPedido;
 import br.com.leo.loja.modelo.Pedido;
-import br.com.leo.loja.modelo.Produto;
 
 public class Teste {
 	
@@ -18,29 +19,23 @@ public static void main(String[] args) {
 		ClienteDAO clidao = new ClienteDAO();
 		ItemPedidoDAO ipdao = new ItemPedidoDAO();
 		
-		Cliente cliente = clidao.obterPorId(1l);
+		Pedido pedido = new Pedido(clidao.obterPorId(1l));
 		
-		Produto p1 = pdao.obterPorId(8l);
-		Produto p2 = pdao.obterPorId(9l);
-		Produto p3 = pdao.obterPorId(10l);
-		
-		Pedido pedido = new Pedido(cliente);
-		
-		ItemPedido ip1 = new ItemPedido(1, pedido, p1);
-		ItemPedido ip2 = new ItemPedido(1, pedido, p2);
-		ItemPedido ip3 = new ItemPedido(1, pedido, p3);
-		
+		ItemPedido ip1 = new ItemPedido(1, pedido, pdao.obterPorId(10l));
+		ItemPedido ip2 = new ItemPedido(2, pedido, pdao.obterPorId(11l));
+		ItemPedido ip3 = new ItemPedido(2, pedido, pdao.obterPorId(12l));
 		
 		pedido.adicionarItem(ip1);
-		System.out.println(pedido.getValorTotal());
-		
 		pedido.adicionarItem(ip2);
-		System.out.println(pedido.getValorTotal());
-		
 		pedido.adicionarItem(ip3);
-		System.out.println(pedido.getValorTotal());
 		
 		pedidao.inserirAtomico(pedido);
+		
+		BigDecimal big = pedidao.valorTotalVendido();
+		
+		DecimalFormat format = new DecimalFormat("#,###,##0.00");
+		
+		System.out.println(format.format(big));
 		
 		
 		

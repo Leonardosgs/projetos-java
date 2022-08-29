@@ -1,5 +1,6 @@
 package br.com.leo.loja.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -99,6 +100,11 @@ String jpql = "SELECT e FROM Pedido e WHERE e.cliente.nome = :cliente";
 	public void fecharManager() {
 		em.close();
 		
+	}
+	
+	public BigDecimal valorTotalVendido() {
+		String jpql = "SELECT SUM(p.valorTotal) FROM Pedido p";
+		return em.createQuery(jpql, BigDecimal.class).getSingleResult();
 	}
 
 }

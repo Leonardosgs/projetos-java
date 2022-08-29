@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "itens_pedido")
@@ -23,6 +24,9 @@ public class ItemPedido {
 	private BigDecimal precoUnitario;
 	
 	private int quantidade;
+	
+	@Transient
+	private BigDecimal valor = BigDecimal.ZERO;
 	
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
@@ -82,7 +86,9 @@ public class ItemPedido {
 		this.produto = produto;
 	}
 	
-	
+	public BigDecimal getValor() {
+		return this.valor = precoUnitario.multiply(new BigDecimal(quantidade));
+	}
 	
 	
 }
