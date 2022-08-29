@@ -26,8 +26,6 @@ public static void main(String[] args) {
 		
 		Pedido pedido = new Pedido(cliente);
 		
-		pedidao.inserirAtomico(pedido);
-		
 		ItemPedido ip1 = new ItemPedido(1, pedido, p1);
 		ItemPedido ip2 = new ItemPedido(1, pedido, p2);
 		ItemPedido ip3 = new ItemPedido(1, pedido, p3);
@@ -42,9 +40,7 @@ public static void main(String[] args) {
 		pedido.adicionarItem(ip3);
 		System.out.println(pedido.getValorTotal());
 		
-		pedidao.atualizar(pedido);
-		
-		ipdao.abrirTransaction().inserir(ip1).inserir(ip2).inserir(ip3).fecharTransaction();
+		pedidao.inserirAtomico(pedido);
 		
 		
 		
